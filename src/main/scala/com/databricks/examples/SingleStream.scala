@@ -22,6 +22,9 @@ import org.apache.spark.sql.SparkSession
 import org.apache.spark.sql.types._
 import org.apache.spark.sql.streaming.Trigger
 
+import org.apache.spark.sql.streaming.OutputMode
+import org.apache.spark.sql.types.{IntegerType, StructField, StructType}
+
 /** Computes an approximation to pi */
 object SingleStream {
   def main(args: Array[String]) {
@@ -29,6 +32,7 @@ object SingleStream {
       .builder
       .appName("Single Stream")
       .getOrCreate()
+    import spark.implicits._
 
     val jsonSchema = new StructType().add("change", DoubleType).add("price", DoubleType).add("sector", StringType).add("ticker_symbol", StringType)
     
